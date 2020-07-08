@@ -13,17 +13,15 @@ export const Canvas: React.FC = () => {
 
     return (
         <CanvasContainer>
-            {elements.map((element) => {
+            {[...Array(elements.length).keys()].map((index) => {
                 return (
                     <Element
-                        key={element.id}
-                        top={element.top}
-                        left={element.left}
-                        color={element.color}
+                        key={index}
+                        index={index}
                         onDrag={(top, left) => {
                             setElements(
                                 elements.map((el) => {
-                                    if (el.id === element.id) {
+                                    if (el.id === index) {
                                         return {
                                             ...el,
                                             top,
@@ -35,7 +33,7 @@ export const Canvas: React.FC = () => {
                                 }),
                             )
                         }}
-                        onSelect={() => setSelectedElement(element.id)}
+                        onSelect={() => setSelectedElement(index)}
                     />
                 )
             })}

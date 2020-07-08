@@ -2,6 +2,7 @@ import React from 'react'
 import {DraggableCore} from 'react-draggable'
 import styled from 'styled-components'
 import hexToRgba from 'hex-to-rgba'
+import {useMyContext} from './App'
 
 const Container = styled.div`
     position: absolute;
@@ -22,14 +23,14 @@ const InnerContainer = styled.div`
 `
 
 type ElementProps = {
-    top: number
-    left: number
-    color: string
+    index: number
     onDrag: (top: number, left: number) => void
     onSelect: () => void
 }
 
-export const Element = React.memo<ElementProps>(({top, left, color, onDrag, onSelect}) => {
+export const Element: React.FC<ElementProps> = ({index, onDrag, onSelect}) => {
+    const {elements} = useMyContext()
+    const {top, left, color} = elements[index]
     return (
         <Container style={{top, left, backgroundColor: hexToRgba(color, 0.45)}} onMouseDown={onSelect}>
             <DraggableCore onDrag={(e: any) => onDrag(top + e.movementY, left + e.movementX)}>
@@ -37,4 +38,4 @@ export const Element = React.memo<ElementProps>(({top, left, color, onDrag, onSe
             </DraggableCore>
         </Container>
     )
-})
+}
