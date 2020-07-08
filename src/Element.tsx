@@ -29,7 +29,7 @@ type ElementProps = {
     onSelect: () => void
 }
 
-export const Element: React.FC<ElementProps> = ({top, left, color, onDrag, onSelect}) => {
+export const Element = React.memo<ElementProps>(({top, left, color, onDrag, onSelect}) => {
     return (
         <Container style={{top, left, backgroundColor: hexToRgba(color, 0.45)}} onMouseDown={onSelect}>
             <DraggableCore onDrag={(e: any) => onDrag(top + e.movementY, left + e.movementX)}>
@@ -37,4 +37,4 @@ export const Element: React.FC<ElementProps> = ({top, left, color, onDrag, onSel
             </DraggableCore>
         </Container>
     )
-}
+})

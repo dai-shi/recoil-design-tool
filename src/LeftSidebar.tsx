@@ -1,8 +1,8 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import {Sidebar, Title} from './ui'
 import styled from 'styled-components'
 import {FiSquare, FiImage} from 'react-icons/fi'
-import {ElementsContext} from './App'
+import {useMyContext} from './App'
 // @ts-ignore
 import randomMC from 'random-material-color'
 
@@ -20,7 +20,7 @@ const InsertButton = styled.button`
 `
 
 export const LeftSidebar: React.FC = () => {
-    const {setElements} = useContext(ElementsContext)
+    const {setElements} = useMyContext()
 
     return (
         <Sidebar>

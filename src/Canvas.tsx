@@ -1,7 +1,7 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {Element} from './Element'
-import {ElementsContext} from './App'
+import {useMyContext} from './App'
 
 const CanvasContainer = styled.div`
     flex: 1;
@@ -9,7 +9,7 @@ const CanvasContainer = styled.div`
 `
 
 export const Canvas: React.FC = () => {
-    const {elements, setSelectedElement, setElements} = useContext(ElementsContext)
+    const {elements, setSelectedElement, setElements} = useMyContext()
 
     return (
         <CanvasContainer>

@@ -1,7 +1,7 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import {Sidebar, Title} from './ui'
 import styled from 'styled-components'
-import {ElementsContext} from './App'
+import {useMyContext} from './App'
 import {ColorPicker} from './ColorPicker'
 
 const InputLabel = styled.div`
@@ -36,7 +36,7 @@ const PropertyInput: React.FC<{label: string; value: number; onChange: (value: n
 }
 
 const Properties: React.FC = () => {
-    const {selectedElement: selectedElementId, elements, setElements} = useContext(ElementsContext)
+    const {selectedElement: selectedElementId, elements, setElements} = useMyContext()
 
     const selectedElement = elements.find((element) => element.id === selectedElementId)
 

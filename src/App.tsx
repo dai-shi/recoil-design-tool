@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import styled from 'styled-components'
+import { createContainer } from 'react-tracked'
 
 import {Canvas} from './Canvas'
 import {LeftSidebar} from './LeftSidebar'
@@ -20,37 +21,32 @@ type Element = {
     color: string
 }
 
-type SelectedElement = number | undefined
-
-type ElementsContext = {
-    elements: Element[]
-    setElements: React.Dispatch<React.SetStateAction<Element[]>>
-    selectedElement: SelectedElement
-    setSelectedElement: React.Dispatch<React.SetStateAction<number | undefined>>
-}
-
-export const ElementsContext = React.createContext<ElementsContext>({
-    elements: [],
-    setElements: () => {},
-    selectedElement: undefined,
-    setSelectedElement: () => {},
-})
-
-const App: React.FC = () => {
+const {
+    Provider,
+    useTrackedState,
+} = createContainer(() => {
     const [elements, setElements] = useState<Element[]>([])
     const [selectedElement, setSelectedElement] = useState<number | undefined>()
+    const state = useMemo(() => ({
+        elements,
+        selectedElement,
+        setElements,
+        setSelectedElement,
+    }), [elements, selectedElement])
+    return [state, undefined] as const
+})
+export const useMyContext = useTrackedState
 
-    return (
-        <ElementsContext.Provider value={{elements, setElements, selectedElement, setSelectedElement}}>
-            <Container>
-                <LeftSidebar />
-                <Canvas />
-                <RightSidebar />
-                <GlobalStyles />
-            </Container>
-        </ElementsContext.Provider>
-    )
-}
+const App: React.FC = () => (
+    <Provider>
+        <Container>
+            <LeftSidebar />
+            <Canvas />
+            <RightSidebar />
+            <GlobalStyles />
+        </Container>
+    </Provider>
+)
 
 function Root() {
     return <App />
