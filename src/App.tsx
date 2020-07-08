@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, Suspense} from 'react'
 import styled from 'styled-components'
 
 import {Canvas} from './Canvas'
 import {LeftSidebar} from './LeftSidebar'
 import {RightSidebar} from './RightSidebar'
 import {GlobalStyles} from './ui'
-import {RecoilRoot} from 'recoil'
+import {RecoilRoot} from 'use-atom'
 
 const Container = styled.div`
     display: flex;
@@ -41,9 +41,11 @@ const App: React.FC = () => {
 
 function Root() {
     return (
-        <RecoilRoot>
-            <App />
-        </RecoilRoot>
+        <Suspense fallback={null}>
+            <RecoilRoot>
+                <App />
+            </RecoilRoot>
+        </Suspense>
     )
 }
 

@@ -4,7 +4,21 @@ import styled from 'styled-components'
 import hexToRgba from 'hex-to-rgba'
 // @ts-ignore
 import randomMC from 'random-material-color'
-import {atomFamily, useRecoilState, atom, useSetRecoilState} from 'recoil'
+import {useRecoilState, atom, useSetRecoilState} from 'use-atom'
+
+const atomFamilyMap = new Map();
+const atomFamily = (config: any) => (param: any) => {
+    const key = `${config.key}-${param}`
+    if (atomFamilyMap.has(key)) {
+        return atomFamilyMap.get(key)
+    }
+    const a = atom({
+        key: `${config.key}-${param}`,
+        default: config.default(param),
+    })
+    atomFamilyMap.set(key, a)
+    return a
+}
 
 const Container = styled.div`
     position: absolute;

@@ -2,7 +2,7 @@ import React from 'react'
 import {Sidebar, Title} from './ui'
 import styled from 'styled-components'
 import {ColorPicker} from './ColorPicker'
-import {useRecoilState, selector} from 'recoil'
+import {useRecoilState, selector} from 'use-atom'
 import {selectedElementIdState, elementState, ElementState} from './Element'
 
 const InputLabel = styled.div`
