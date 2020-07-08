@@ -2,6 +2,7 @@ import React from 'react'
 import {DraggableCore} from 'react-draggable'
 import styled from 'styled-components'
 import hexToRgba from 'hex-to-rgba'
+import {memo} from 'react-tracked'
 
 const Container = styled.div`
     position: absolute;
@@ -29,7 +30,7 @@ type ElementProps = {
     onSelect: () => void
 }
 
-export const Element = React.memo<ElementProps>(({top, left, color, onDrag, onSelect}) => {
+export const Element = memo<ElementProps>(({top, left, color, onDrag, onSelect}) => {
     return (
         <Container style={{top, left, backgroundColor: hexToRgba(color, 0.45)}} onMouseDown={onSelect}>
             <DraggableCore onDrag={(e: any) => onDrag(top + e.movementY, left + e.movementX)}>
